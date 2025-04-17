@@ -20,20 +20,20 @@ signed main() {
   // for (auto c : wt) {
   //   cout << c.first.first << ' ' << c.first.second << ' ' << c.second << '\n';
   // }
-  int ans = 1e18;
-  function<void(int, vector<vector<bool>>&, int)> dfs = [&](int x, vector<vector<bool>> &vis, int tot) {
+  int ans = (1LL << 61);
+  function<void(int, vector<bool>&, int)> dfs = [&](int x, vector<bool> &vis, int tot) {
     if (x == n - 1) {
       ans = min(ans, tot);
       return;
     }
+    vis[x] = true;
     for (auto ux : g[x]) {
-      if (vis[x][ux]) continue;
-      vis[x][ux] = true;
+      if (vis[ux]) continue;
       dfs(ux, vis, tot ^ wt[{x, ux}]);
-      vis[x][ux] = false;
     }
+    vis[x] = false;
   };
-  vector<vector<bool>> vis(n, vector<bool>(n, 0)); 
+  vector<bool> vis(n, 0); 
   dfs(0, vis, 0);
   cout << ans << '\n';
 }
