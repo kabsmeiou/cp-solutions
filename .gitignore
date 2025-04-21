@@ -7,3 +7,6 @@
 # Ignore temporary files
 *.tmp
 *.log
+
+
+.vscode/
