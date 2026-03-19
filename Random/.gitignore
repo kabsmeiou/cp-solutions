@@ -1,0 +1,4 @@
+.vscode/
+
+# ignore binary files
+*.exe
