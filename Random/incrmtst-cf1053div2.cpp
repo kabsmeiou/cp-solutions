@@ -28,27 +28,21 @@ signed main() {
         int dstart = 0, dend = n - 2;
         int start = 0, end = n - 1;
         int left = 0, right = 2 * n - 1;
-        int64_t ans = 0;
-        for (int i = 0; i < n; i += 1) {
-            ans += a[right] - a[left];
-            if (i & 1) {
-                if (dstart <= dend) {
-                    oddpairs -= diff[dstart];
-                    if (dstart != dend) oddpairs -= diff[dend];
-                    dstart += 1;
-                    dend -= 1;
-                }
+        int64_t ans = a[right] - a[left];
+        for (int i = 1; i < n; i += 1) {
+            if (i % 2 == 0) {
+                oddpairs -= (diff[dstart] + diff[dend]);
+                dstart += 1, dend -= 1;
                 std::cout << ans + evenpairs << ' ';
             } else {
-                evenpairs -= ediff[start];
-                if (start != end) evenpairs -= ediff[end];
-                start += 1;
-                end -= 1;
-                left += 1;
-                right -= 1;
+                evenpairs -= (ediff[start] + ediff[end]);
+                start += 1, end -= 1;
                 std::cout << ans + oddpairs << ' ';
             }
+            left += 1, right -= 1;
+            ans += (a[right] - a[left]);
         }
+
         std::cout << '\n';
     }
 }
